@@ -300,6 +300,7 @@ contexts:
         - match: '$(?=\n)'
           pop: true
   expressions:
+    - include: comment
     - include: literal
     - include: system-variable
     - include: function-call
