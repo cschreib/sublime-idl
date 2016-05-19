@@ -1,4 +1,4 @@
-; SYNTAX TEST "Packages/IDL/IDL.sublime-syntax"
+; SYNTAX TEST "Packages/sublime-idl/IDL.sublime-syntax"
 ; foo
 ; ^ source.idl comment.line
 ; <- punctuation.definition.comment
@@ -71,16 +71,29 @@ b.foo->bar = a
 ;    ^ punctuation.accessor
 ;          ^ keyword.operator
 
+a = foo(b, bar=2, /test)
+;   ^ meta.function-call
+;          ^ variable.parameter
+;                 ^ variable.parameter.keyword
+
 a = foo(b, bar(c, d, bar=2, /test))
 ;   ^ meta.function-call
 ;                  ^ meta.function-call meta.function-call
 ;                    ^ variable.parameter
 ;                           ^ variable.parameter.keyword
 
+a = foo(b/c, bar=2/foo)
+;   ^ meta.function-call
+;        ^ keyword.operator -variable.parameter.keyword
+;                 ^ keyword.operator -variable.parameter.keyword
+
 a = foo($ ; test comment
 ;   ^ meta.function-call
 ;         ^ comment.line
-    b+2, $
+    -b+2, $
+    a $
+    /c, $
+;   ^ keyword.operator
     bar($
         c,$
         d,$
