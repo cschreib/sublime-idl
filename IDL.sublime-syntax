@@ -193,9 +193,19 @@ contexts:
       captures:
         1: variable.parameter.idl
         2: keyword.operator.assignment.idl
+      push:
+        - match: '(?=[,)])'
+          pop: true
+        - include: expressions
     - match: '/{{identifier}}'
       scope: variable.parameter.keyword.idl
-    - include: expressions
+    - include: line-continuator
+    - include: comment
+    - match: '(?!\s)' # if not one of the above, parse expressions
+      push:
+        - match: '(?=[,)])'
+          pop: true
+        - include: expressions
   function-call:
     - match: '({{sysfun}})\s*(\()'
       captures:
