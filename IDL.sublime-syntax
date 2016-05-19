@@ -109,19 +109,19 @@ contexts:
     - match: (?i)\breturn\b
       scope: keyword.control.idl
       push:
-          - include: line-continuation
-          - include: expressions
-          - match: ','
-            scope: punctuation.separator.idl
-          - match: '$(?=\n)|({{keyword}})'
-            captures:
-              1: keyword.control.idl
-            pop: true
-          - match: '(;).*$'
-            scope: comment.line.idl
-            captures:
-              1: punctuation.definition.comment.idl
-            pop: true
+        - include: line-continuation
+        - include: expressions
+        - match: ','
+          scope: punctuation.separator.idl
+        - match: '$(?=\n)|({{keyword}})'
+          captures:
+            1: keyword.control.idl
+          pop: true
+        - match: '(;).*$'
+          scope: comment.line.idl
+          captures:
+            1: punctuation.definition.comment.idl
+          pop: true
   flow-control:
     - include: if-statement
     - include: for-statement
