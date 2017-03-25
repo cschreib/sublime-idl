@@ -11,7 +11,7 @@ variables:
   syspro: '(?i)\b(?:annotate|arrow|axis|bar_plot|binary_template|blas_axpy|box_cursor|breakpoint|byteorder|caldat|calendar|call_procedure|catch|cd|choldc|cir_3pnt|close|color_convert|compute_mesh_normals|constrained_min|contour|copy_lun|cpu|create_view|cursor|define_key|define_msgblk|define_msgblk_from_file|defsysv|delvar|dendrogram|dendro_plot|device|dfpmin|diag_matrix|dialog_read_image|dissolve|dlm_load|dlm_register|doc_library|draw_roi|efont|empty|enable_sysrtn|erase|errplot|exit|file_chmod|file_copy|file_delete|file_link|file_mkdir|file_move|file_same|flick|flow3|flush|forward_function|free_lun|funct|gamma_ct|get_drive_list|get_lun|grid_input|hanning|hdf_browser|heap_free|heap_gc|help|hls|hsv|h_eq_ct|h_eq_int|icontour|iimage|image_cont|image_statistics|imap|interval_volume|iplot|isocontour|isosurface|isurface|itcurrent|itdelete|itregister|itreset|itresolve|ivolume|journal|la_choldc|la_cholsol|la_eigenvec|la_ludc|la_svd|la_tridc|la_triql|la_trired|linkimage|loadct|ludc|make_dll|map_continents|map_grid|map_proj_info|map_set|message|mk_html_help|modifyct|morph_hitormiss|morph_open|morph_thin|morph_tophat|mpeg_close|mpeg_open|mpeg_put|mpeg_save|multi|obj_destroy|online_help|online_help_pdf_index|on_error|on_ioerror|openr|openu|openw|oplot|oploterr|particle_trace|path_cache|plot|ploterr|plots|plot_3dbox|plot_field|point_lun|polar_contour|polyfill|polywarp|popd|powell|print|printd|printf|profiler|profiles|project_vol|psafm|pseudo|ps_show_fonts|ptr_free|pushd|qhull|rdpix|read|readf|reads|readu|read_binary|read_gif|read_interfile|read_jpeg|read_mrsid|read_pict|read_ppm|read_srf|read_wave|read_x11_bitmap|reduce_colors|region_grow|register_cursor|replicate_inplace|resolve_all|resolve_routine|restore|save|scale3|scale3d|scope_level|scope_varfetch|setenv|setup_keys|set_plot|set_shading|shade_surf|shade_surf_irr|shade_volume|shmdebug|shmmap|shmunmap|show3|showfont|skip_lun|slicer3|slide_image|socket|sph_4pnt|spline_p|streamline|stretch|strput|struct_assign|struct_hide|surface|surfr|svdc|swap_endian_inplace|systime|t3d|tek_color|tetra_clip|tetra_surface|tetra_volume|threed|timegen|time_test2|triangulate|triql|trired|truncate_lun|tv|tvcrs|tvlct|tvscl|usersym|vector_field|vel|velovect|voronoi|wait|wdelete|wf_draw|window|writeu|write_bmp|write_gif|write_image|write_jpeg|write_jpeg2000|write_nrif|write_pict|write_png|write_ppm|write_spr|write_srf|write_tiff|write_wav|write_wave|wset|wshow|xbm_edit|xdisplayfile|xdxf|xinteranimate|xloadct|xmanager|xmng_tmpl|xmtool|xobjview|xobjview_rotate|xobjview_write_image|xpalette|xpcolor|xplot3d|xroi|xsurface|xvaredit|xvolume|xvolume_rotate|xvolume_write_image|xyouts|zoom|zoom_24)\b'
   identifier: '\b[a-zA-Z_][a-zA-Z_0-9]*\b'
   number: '(?i)(?:(?:\b[0-9]+(?:b|l|ul|u|ll|ull))|(?:\.[0-9]+|(?:\b[0-9]+(?:\.[0-9]*)?))(?:(?:e|d)(?:(?:\+|-)?[0-9]+)?)?)'
-  keyword: '(?i)\b(?:and|or|not|if|else|while|for|case|begin|end|switch|endif|endelse|endfor|endwhile|endcase|endswitch|return|stop|break|continue|goto|pro|function|compile_opt|then|ge|gt|le|lt|eq|ne)\b'
+  keyword: '(?i)\b(?:and|or|not|if|else|while|for|foreach|case|begin|end|switch|endif|endelse|endfor|endforeach|endwhile|endcase|endswitch|return|stop|break|continue|goto|pro|function|compile_opt|then|ge|gt|le|lt|eq|ne)\b'
 contexts:
   main:
     - include: statements
@@ -70,6 +70,16 @@ contexts:
         - match: ','
           scope: punctuation.separator.idl
         - include: expressions
+  foreach-statement:
+    - match: (?i)\bforeach\b
+      scope: keyword.control.idl
+      push:
+        - match: '(?i)\bdo\b'
+          scope: keyword.control.idl
+          pop: true
+        - match: ','
+          scope: punctuation.separator.idl
+        - include: expressions
   while-statement:
     - match: (?i)\bwhile\b
       scope: keyword.control.idl
@@ -125,6 +135,7 @@ contexts:
   flow-control:
     - include: if-statement
     - include: for-statement
+    - include: foreach-statement
     - include: while-statement
     - include: case-statement
     - match: (?i)\belse\b
@@ -144,7 +155,7 @@ contexts:
       scope: keyword.control.idl
       push:
         - meta_scope: meta.block.idl
-        - match: '(?i)\b(end|endif|endelse|endfor|endwhile)\b'
+        - match: '(?i)\b(end|endif|endelse|endfor|endforeach|endwhile)\b'
           scope: keyword.control.idl
           pop: true
         - include: statements

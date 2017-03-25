@@ -204,6 +204,16 @@ for i=0, 15 do begin
 ;   ^ keyword.control
 endfor
 
+foreach k=0, 15 do begin
+; <- keyword.control
+;           ^ keyword.control
+;              ^ meta.block
+    a += 1
+;     ^ keyword.operator
+    break
+;   ^ keyword.control
+endforeach
+
 while a ne b do begin
 ; <- keyword.control
 ;            ^ keyword.control
