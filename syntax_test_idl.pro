@@ -91,7 +91,7 @@ a = foo($ ; test comment
 ;   ^ meta.function-call
 ;         ^ comment.line
     -b+2, $
-    a $
+    a, $
     /c, $
 ;   ^ keyword.operator
     bar($
@@ -206,8 +206,8 @@ endfor
 
 foreach k=0, 15 do begin
 ; <- keyword.control
-;           ^ keyword.control
-;              ^ meta.block
+;               ^ keyword.control
+;                  ^ meta.block
     a += 1
 ;     ^ keyword.operator
     break
