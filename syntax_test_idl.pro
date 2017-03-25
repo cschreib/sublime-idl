@@ -157,6 +157,14 @@ s = {mystruct, a:1, b:c, bla:[5,2,3]}
 ;              ^ variable.parameter
 ;                            ^ meta.brackets
 
+s = {mystruct2, a:1, inherits mystruct, b:c, bla:[5,2,3]}
+;   ^ meta.structure-definition
+;    ^ entity.name.struct
+;               ^ variable.parameter
+;                    ^ keyword.control
+;                             ^ entity.name.struct
+;                                       ^ variable.parameter
+
 if i eq 0 then print else print, i
 ;              ^ support.function
 ;                    ^ keyword.control

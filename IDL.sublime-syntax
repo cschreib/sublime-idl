@@ -177,6 +177,11 @@ contexts:
       captures:
         1: variable.parameter.idl
         2: punctuation.separator.idl
+    - match: '(?i)\b(inherits)\s+({{identifier}})\s*(,)'
+      captures:
+        1: keyword.control.idl
+        2: entity.name.struct.idl
+        3: punctuation.separator.idl
     - include: expressions
   structure:
     - match: '{'
@@ -196,6 +201,13 @@ contexts:
           captures:
             1: variable.parameter.idl
             2: punctuation.separator.idl
+          push:
+            - include: structure-parameters
+        - match: '(?i)\b(inherits)\s+({{identifier}})\s*(,)'
+          captures:
+            1: keyword.control.idl
+            2: entity.name.struct.idl
+            3: punctuation.separator.idl
           push:
             - include: structure-parameters
         - include: expressions
