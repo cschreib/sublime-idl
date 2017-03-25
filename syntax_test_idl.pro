@@ -91,9 +91,12 @@ a = foo($ ; test comment
 ;   ^ meta.function-call
 ;         ^ comment.line
     -b+2, $
-    a, $
+    a $
     /c, $
 ;   ^ keyword.operator
+    a, $
+    /c, $
+;   ^ variable.parameter.keyword
     bar($
         c,$
         d,$
@@ -108,16 +111,22 @@ a = foo($ ; test comment
 b = sqrt(2)
 ;   ^ meta.function-call support.function
 
-dostuff, a, b, width=2, /silent
+dostuff, a, b, width=2, /silent, a/c
 ; <- meta.function-call.procedure
 ;           ^ meta.function-call.procedure
 ;              ^ variable.parameter
 ;                       ^ variable.parameter.keyword
+;                                 ^ keyword.operator
 
 dostuff, $
-    a, $
-    b+2, $
+    a/b, $
+;    ^ keyword.operator
+
+dostuff, $
     width=2, $
+;   ^ variable.parameter
+
+dostuff, $
     /silent
 ;   ^ variable.parameter.keyword
 
@@ -148,6 +157,7 @@ s = {a:1, b:c, $
 s = {bla:{a:1, c:2}, d:5}
 ;   ^ meta.structure-definition
 ;    ^ variable.parameter
+;        ^ meta.structure-definition meta.structure-definition
 ;         ^ variable.parameter
 ;                    ^ variable.parameter
 
