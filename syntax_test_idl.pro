@@ -136,6 +136,27 @@ print, x ; print the value of x
 ; <- support.function
 ;        ^ comment.line
 
+s = {a:1, b:c, $
+;   ^ meta.structure-definition
+;    ^ variable.parameter
+;      ^ constant.numeric
+    bla:[5,2,3]}
+;   ^ meta.structure-definition
+;   ^ variable.parameter
+;       ^ meta.brackets
+
+s = {bla:{a:1, c:2}, d:5}
+;   ^ meta.structure-definition
+;    ^ variable.parameter
+;         ^ variable.parameter
+;                    ^ variable.parameter
+
+s = {mystruct, a:1, b:c, bla:[5,2,3]}
+;   ^ meta.structure-definition
+;    ^ entity.name.struct
+;              ^ variable.parameter
+;                            ^ meta.brackets
+
 if i eq 0 then print else print, i
 ;              ^ support.function
 ;                    ^ keyword.control

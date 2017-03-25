@@ -168,6 +168,16 @@ contexts:
         - match: \)
           scope: punctuation.definition.group.end.idl
           pop: true
+  structure-parameters:
+    - match: '(?=})'
+      pop: true
+    - match: ','
+      scope: punctuation.separator.idl
+    - match: '({{identifier}})\s*(:)'
+      captures:
+        1: variable.parameter.idl
+        2: punctuation.separator.idl
+    - include: expressions
   structure:
     - match: '{'
       scope: punctuation.definition.brackets.begin.idl
@@ -176,12 +186,18 @@ contexts:
         - match: '}'
           scope: punctuation.definition.brackets.end.idl
           pop: true
-        - match: ','
-          scope: punctuation.separator.idl
+        - match: '({{identifier}})\s*(,)'
+          captures:
+            1: entity.name.struct.idl
+            2: punctuation.separator.idl
+          push:
+            - include: structure-parameters
         - match: '({{identifier}})\s*(:)'
           captures:
             1: variable.parameter.idl
             2: punctuation.separator.idl
+          push:
+            - include: structure-parameters
         - include: expressions
   function-call-parameters:
     - match: '\)'
