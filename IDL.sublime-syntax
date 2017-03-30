@@ -144,8 +144,12 @@ contexts:
     - include: case-statement
     - match: (?i)\belse\b
       scope: keyword.control.idl
-    - match: (?i)\b(?:break|continue|goto|stop)\b
+    - match: (?i)\b(break|continue|stop)\b
       scope: keyword.control.idl
+    - match: (?i)\b(goto)\s*(,)
+      captures:
+        1: keyword.control.idl
+        2: punctuation.separator.idl
     - include: return-statement
   line-continuator:
       - match: '(\$)'
