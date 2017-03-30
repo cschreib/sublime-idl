@@ -88,6 +88,9 @@ contexts:
           scope: keyword.control.idl
           pop: true
         - include: expressions
+  repeat-statement:
+    - match: (?i)\b(repeat|until)\b
+      scope: keyword.control.idl
   case-statement-item:
     - match: '(?i)\bbegin\b'
       scope: keyword.control.idl
@@ -137,6 +140,7 @@ contexts:
     - include: for-statement
     - include: foreach-statement
     - include: while-statement
+    - include: repeat-statement
     - include: case-statement
     - match: (?i)\belse\b
       scope: keyword.control.idl
@@ -155,7 +159,7 @@ contexts:
       scope: keyword.control.idl
       push:
         - meta_scope: meta.block.idl
-        - match: '(?i)\b(end|endif|endelse|endfor|endforeach|endwhile)\b'
+        - match: '(?i)\b(end|endif|endelse|endfor|endforeach|endwhile|endrep)\b'
           scope: keyword.control.idl
           pop: true
         - include: statements
