@@ -334,6 +334,7 @@ contexts:
           set:
             - meta_scope: function-definition.body.idl
             - include: statements
+            - include: common-variables
             - match: '(?i)\bend\b'
               scope: keyword.control.idl
               pop: true
@@ -358,7 +359,20 @@ contexts:
         - include: line-continuator
         - include: comment
         - match: '{{identifier}}'
-          scope: meta.compiler-option
+          scope: meta.forward-declaration
+        - match: ','
+          scope: punctuation.separator.idl
+        - match: '$(?=\n)'
+          pop: true
+  common-variables:
+    - match : '(?i)\bcommon\b'
+      scope: keyword.control.idl
+      push:
+        - meta_scope: common-variables.idl
+        - include: line-continuator
+        - include: comment
+        - match: '{{identifier}}'
+          scope: meta.common-variable
         - match: ','
           scope: punctuation.separator.idl
         - match: '$(?=\n)'
